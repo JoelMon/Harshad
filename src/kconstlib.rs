@@ -16,6 +16,11 @@ fn is_four_digits(number: usize) -> bool {
     false
 }
 
+/// Sorts the all digits from largest to smallest
+fn sort(number: usize) -> usize {
+    todo!()
+}
+
 #[cfg(test)]
 mod tests {
 
