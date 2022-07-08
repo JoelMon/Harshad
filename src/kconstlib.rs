@@ -8,7 +8,7 @@ impl Length for usize {
     }
 }
 
-/// Checks if the number entered contains 4 digits.
+/// Checks if the number entered contains four digits.
 fn is_four_digits(number: usize) -> bool {
     if number.len() == 4 {
         return true;
