@@ -1,7 +1,11 @@
 //! # Harshad
 //! A Kaprekar library
+mod kconstlib;
 
 /// An implementation of Kaprekar's constant
+///
+/// Takes four digits and returns the number of iteration
+/// until 6174 is found.
 pub fn kconst(number: i32) -> i32 {
     todo!()
 }
