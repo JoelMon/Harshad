@@ -1,7 +1,12 @@
 [package]
 name = "harshad"
+authors = ["Joel Montes de Oca"]
 version = "0.1.0"
 edition = "2021"
+readme = "README.md"
+description = "A Kaprekar library"
+repository = "https://github.com/JoelMon/Harshad"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
