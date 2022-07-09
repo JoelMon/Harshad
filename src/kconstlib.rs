@@ -65,10 +65,7 @@ fn sort_desend(number: usize) -> usize {
 
 /// Takes a `usize` sorts it and subtracts
 fn subtract(number: usize) -> usize {
-    let num1 = sort_desend(number);
-    let num2 = sort_asend(number);
-
-    num1 - num2
+    sort_desend(number) - sort_asend(number)
 }
 
 #[cfg(test)]
