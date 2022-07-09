@@ -25,10 +25,8 @@ fn is_veried(number: usize) -> bool {
     let first = items[0];
     let varied: bool = items.iter().all(|&char| char == first);
 
-    match varied {
-        true => false,
-        false => true,
-    }
+    // return the inverse of varied since we want true if it _is_ varried
+    !varied
 }
 
 /// Sorts the all digits from largest to smallest
