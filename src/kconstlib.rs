@@ -1,8 +1,24 @@
-use std::num;
-
 const FOUR_DIGITS: usize = 4;
+const KAPREKAR_CONSTANT: usize = 6174;
+
+//TODO: FIX LOGIC, SUBSTRACTION IS WRONG
+fn kconst(number: usize) -> usize {
+    let mut steps: usize = 0;
+    let mut number = number;
+
+    while number.is_four_digits() && number.is_varied() {
+        if number == KAPREKAR_CONSTANT {
+            return steps;
+        } else {
+            steps += 1;
+            number = subtract(number);
+        }
+    }
+    panic!("Something went wrong");
+}
 
 trait Length {
+    /// Returns the total number of digits.
     fn len(&self) -> usize;
 }
 
@@ -12,23 +28,34 @@ impl Length for usize {
     }
 }
 
-/// Checks if the number entered contains four digits.
-fn is_four_digits(number: usize) -> bool {
-    if number.len() == FOUR_DIGITS {
-        return true;
+trait Varied {
+    /// Checks to see if the digits varies, ie. all the digits passed in are not the same digit.
+    fn is_varied(&self) -> bool;
+}
+impl Varied for usize {
+    fn is_varied(&self) -> bool {
+        let items: Vec<char> = self.to_string().chars().map(|x| x).collect();
+
+        let first = items[0];
+        let varied: bool = items.iter().all(|&char| char == first);
+
+        // return the inverse of varied since we want true if it _is_ varied
+        !varied
     }
-    false
 }
 
-/// Checks to see if the digits varies, ie. all the digits passed in are not the same.
-fn is_veried(number: usize) -> bool {
-    let items: Vec<char> = number.to_string().chars().map(|x| x).collect();
+trait FourDigits {
+    /// Checks if the number entered contains four digits.
+    fn is_four_digits(&self) -> bool;
+}
 
-    let first = items[0];
-    let varied: bool = items.iter().all(|&char| char == first);
-
-    // return the inverse of varied since we want true if it _is_ varried
-    !varied
+impl FourDigits for usize {
+    fn is_four_digits(&self) -> bool {
+        if self.len() == FOUR_DIGITS {
+            return true;
+        }
+        false
+    }
 }
 
 /// Converts `usize` interger into a `Vec<usize>`
@@ -76,48 +103,48 @@ mod tests {
     use super::*;
 
     #[test]
+    fn kconst_1() {
+        let number: usize = 1492;
+        assert_eq!(kconst(number), 3);
+    }
+
+    #[test]
     fn is_four_digits_true() {
-        let number = 1234;
-        let result = is_four_digits(number);
-        assert_eq!(result, true);
+        let number: usize = 1234;
+        assert_eq!(number.is_four_digits(), true);
     }
 
     #[test]
     fn is_four_digits_false_3() {
-        let number = 123;
-        let result = is_four_digits(number);
-        assert_eq!(result, false);
+        let number: usize = 123;
+        assert_eq!(number.is_four_digits(), false);
     }
 
     #[test]
     fn is_four_digits_false_6() {
-        let number = 123456;
-        let result = is_four_digits(number);
-        assert_eq!(result, false);
+        let number: usize = 123456;
+        assert_eq!(number.is_four_digits(), false);
     }
 
     #[test]
     fn is_veried_true() {
-        let number = 1234;
-        let result = is_veried(number);
+        let number: usize = 1234;
 
-        assert_eq!(result, true);
+        assert_eq!(number.is_varied(), true);
     }
 
     #[test]
     fn is_veried_true2() {
-        let number = 1112;
-        let result = is_veried(number);
+        let number: usize = 1112;
 
-        assert_eq!(result, true);
+        assert_eq!(number.is_varied(), true);
     }
 
     #[test]
     fn is_veried_false() {
-        let number = 1111;
-        let result = is_veried(number);
+        let number: usize = 1111;
 
-        assert_eq!(result, false);
+        assert_eq!(number.is_varied(), false);
     }
 
     #[test]
