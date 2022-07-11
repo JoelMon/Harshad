@@ -6,8 +6,8 @@ mod kconstlib;
 ///
 /// Takes four digits and returns the number of iteration
 /// until 6174 is found.
-pub fn kconst(_number: usize) -> usize {
-    todo!()
+pub fn kconst(number: usize) -> usize {
+    kconstlib::kconst(number)
 }
 
 #[cfg(test)]

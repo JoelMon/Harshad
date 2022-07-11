@@ -1,10 +1,9 @@
 const FOUR_DIGITS: usize = 4;
 const KAPREKAR_CONSTANT: usize = 6174;
 
-//TODO: FIX LOGIC, SUBSTRACTION IS WRONG
-fn kconst(number: usize) -> usize {
+pub(super) fn kconst(number: usize) -> usize {
     let mut steps: usize = 0;
-    let mut number = number;
+    let mut number: usize = number;
 
     while number.is_four_digits() && number.is_varied() {
         if number == KAPREKAR_CONSTANT {
@@ -104,13 +103,43 @@ mod tests {
 
     #[test]
     fn kconst_1() {
-        let number: usize = 1492;
-        assert_eq!(kconst(number), 3);
+        let number: usize = 4176;
+        assert_eq!(kconst(number), 1);
     }
 
     #[test]
-    fn is_four_digits_true() {
+    fn kconst_2() {
+        let number: usize = 6264;
+        assert_eq!(kconst(number), 2);
+    }
+
+    #[test]
+    fn kconst_3() {
+        let number: usize = 1492;
+        assert_eq!(kconst(number), 7);
+    }
+
+    #[test]
+    fn kconst_4() {
+        let number: usize = 3165;
+        assert_eq!(kconst(number), 7);
+    }
+
+    #[test]
+    fn kconst_5() {
+        let number: usize = 1000;
+        assert_eq!(kconst(number), 5);
+    }
+
+    #[test]
+    fn is_four_digits_true_1() {
         let number: usize = 1234;
+        assert_eq!(number.is_four_digits(), true);
+    }
+
+    #[test]
+    fn is_four_digits_true_2() {
+        let number: usize = 1000;
         assert_eq!(number.is_four_digits(), true);
     }
 
@@ -127,15 +156,22 @@ mod tests {
     }
 
     #[test]
-    fn is_veried_true() {
+    fn is_veried_true_1() {
         let number: usize = 1234;
 
         assert_eq!(number.is_varied(), true);
     }
 
     #[test]
-    fn is_veried_true2() {
+    fn is_veried_true_2() {
         let number: usize = 1112;
+
+        assert_eq!(number.is_varied(), true);
+    }
+
+    #[test]
+    fn is_veried_true_3() {
+        let number: usize = 1000;
 
         assert_eq!(number.is_varied(), true);
     }
