@@ -1,13 +1,14 @@
 const FOUR_DIGITS: usize = 4;
 const KAPREKAR_CONSTANT: usize = 6174;
 
-pub(super) fn kconst(number: usize) -> usize {
+//TODO: `usize` removes leading zeros. Need to change from using usize to String.
+pub(super) fn kconst(number: usize) -> String {
     let mut steps: usize = 0;
     let mut number: usize = number;
 
     while number.is_four_digits() && number.is_varied() {
         if number == KAPREKAR_CONSTANT {
-            return steps;
+            return format!("{}", steps);
         } else {
             steps += 1;
             number = subtract(number);
@@ -90,8 +91,15 @@ fn sort_desend(number: usize) -> usize {
 }
 
 /// Takes a `usize` sorts it and subtracts
+//TODO: Return a String instead of usize.
+// TODO: Fix everything that breaks.
 fn subtract(number: usize) -> usize {
-    sort_desend(number) - sort_asend(number)
+    let number: usize = sort_desend(number) - sort_asend(number);
+    let number: usize = dbg!(format!("{:04}", number))
+        .parse()
+        .expect("Unable to parse formatted string");
+
+    dbg!(number)
 }
 
 #[cfg(test)]
@@ -104,31 +112,40 @@ mod tests {
     #[test]
     fn kconst_1() {
         let number: usize = 4176;
-        assert_eq!(kconst(number), 1);
+        assert_eq!(kconst(number), 1.to_string());
     }
 
     #[test]
     fn kconst_2() {
         let number: usize = 6264;
-        assert_eq!(kconst(number), 2);
+        assert_eq!(kconst(number), 2.to_string());
     }
 
     #[test]
     fn kconst_3() {
         let number: usize = 1492;
-        assert_eq!(kconst(number), 7);
+        assert_eq!(kconst(number), 7.to_string());
     }
 
     #[test]
     fn kconst_4() {
         let number: usize = 3165;
-        assert_eq!(kconst(number), 7);
+        assert_eq!(kconst(number), 7.to_string());
     }
 
     #[test]
     fn kconst_5() {
         let number: usize = 1000;
-        assert_eq!(kconst(number), 5);
+        assert_eq!(kconst(number), 5.to_string());
+    }
+
+    #[test]
+    // Test passes if the lead `0` are kept after subtraction
+    fn leading_zero_test() {
+        let number: usize = 1000;
+
+        let number = subtract(number);
+        assert_eq!(number.is_four_digits(), true);
     }
 
     #[test]
@@ -185,41 +202,37 @@ mod tests {
 
     #[test]
     fn to_vec_pass() {
-        let number = 1234;
-        let result = to_vec(number);
+        let number: usize = 1234;
+        let result: Vec<usize> = to_vec(number);
 
         assert_eq!(result, vec![1, 2, 3, 4]);
     }
 
     #[test]
     fn sort_asend_1() {
-        let number = 3512;
-        let result = sort_asend(number);
+        let number: usize = 3512;
 
-        assert_eq!(result, 1235);
+        assert_eq!(sort_asend(number), 1235);
     }
 
     #[test]
     fn sort_desend_1() {
-        let number = 3512;
-        let result = sort_desend(number);
+        let number: usize = 3512;
 
-        assert_eq!(result, 5321);
+        assert_eq!(sort_desend(number), 5321);
     }
 
     #[test]
     fn subtract_1() {
-        let number = 3512;
-        let result = subtract(number);
+        let number: usize = 3512;
 
-        assert_eq!(result, 4086);
+        assert_eq!(subtract(number), 4086);
     }
 
     #[test]
     fn subtract_2() {
-        let number = 9919;
-        let result = subtract(number);
+        let number: usize = 9919;
 
-        assert_eq!(result, 7992);
+        assert_eq!(subtract(number), 7992);
     }
 }

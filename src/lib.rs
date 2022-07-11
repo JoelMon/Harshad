@@ -6,7 +6,7 @@ mod kconstlib;
 ///
 /// Takes four digits and returns the number of iteration
 /// until 6174 is found.
-pub fn kconst(number: usize) -> usize {
+pub fn kconst(number: usize) -> String {
     kconstlib::kconst(number)
 }
 
